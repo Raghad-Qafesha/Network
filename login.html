@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffe6ea; /* لون زهري فاتح */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #555; /* لون رمادي غامق */
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff6f7f; /* لون زهري غامق */
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ff4057; /* لون زهري فاتح */
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #777; /* لون رمادي */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form id="loginForm" action="/" method="post">
+            <div class="input-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <footer>Created by Raghad and Rahaf Qafisha - Supervised by Dr Hani Salah</footer>
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // منع إرسال النموذج
+            
+            // استخراج بيانات اسم المستخدم وكلمة المرور
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            
+            // إرسال الطلب POST إلى الخادم للتحقق من صحة بيانات الدخول
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        alert("Login Successful");
+                    } else {
+                        alert("Invalid Username or Password");
+                    }
+                }
+            };
+            var data = JSON.stringify({"username": username, "password": password});
+            xhr.send(data);
+        });
+    </script>
+</body>
+</html>
+
